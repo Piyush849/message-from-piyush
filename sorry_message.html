@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message from Piyush Y </title>
+    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fmoon%2F&psig=AOvVaw15tyDhMbV-sqddDIZaMHZn&ust=1730020453402000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCID7w8faq4kDFQAAAAAdAAAAABAE" type="image/png"> <!-- Link to favicon -->
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffebf0, #c3cfd9, #ffe8d8); /* Colorful gradient background */
+            overflow: hidden;
+        }
+        .message-box {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 3em;
+            color: #ff6b81;
+        }
+        p {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .heart {
+            font-size: 5em;
+            color: #ff6b81;
+            animation: beat 1s infinite;
+        }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #ff6b81;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #ff4760;
+        }
+        .heart-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            pointer-events: none;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 2em;
+            color: #ff6b81;
+            animation: float 3s ease-in-out forwards;
+            opacity: 0.8;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        
+        /* Custom animated alert box */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .modal {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            animation: shake 0.5s;
+            font-size: 1.5em;
+            color: #ff6b81;
+        }
+        .modal .emoji {
+            font-size: 3em;
+            animation: shake 0.5s infinite;
+        }
+        .close-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 1em;
+            background-color: #ff6b81;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            background-color: #ff4760;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        /* Message styling */
+        .response-message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box">
+        <div class="heart">❤️</div>
+        <h1>I'm Really Sorry</h1>
+        <p>I didn’t mean to hurt you. Please forgive me!</p>
+        <div class="button-container">
+            <button class="button" onclick="forgiveMe()">Forgive Me?</button>
+            <button class="button" onclick="showCustomAlert()">Not</button>
+        </div>
+        <!-- Response Message -->
+        <div class="response-message" id="response-message"></div>
+    </div>
+    <div class="heart-container" id="heart-container"></div>
+
+    <!-- Custom animated alert modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="emoji">😡</div>
+            <p>Oh no! Please give me a chance!</p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function forgiveMe() {
+            // Display floating hearts animation
+            releaseHearts();
+
+            // Show message confirming the choice
+            const message = document.getElementById('response-message');
+            message.textContent = "Yay! Sandeep forgave you! ❤️";
+
+          
+
+            // Optionally, store choice in localStorage
+            localStorage.setItem('response', 'forgiven');
+        }
+
+        function releaseHearts() {
+            const heartContainer = document.getElementById('heart-container');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.textContent = '❤️';
+                heart.classList.add('floating-heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 1 + 's';
+                heartContainer.appendChild(heart);
+
+                // Remove heart after animation ends
+                heart.addEventListener('animationend', () => heart.remove());
+            }
+        }
+
+        function showCustomAlert() {
+            // Show the custom alert modal
+            document.getElementById('modal-overlay').style.display = 'flex';
+
+            // Show message confirming the choice
+            const message = document.getElementById('response-message');
+            message.textContent = "Sandy didn't forgive you! 😢";
+
+          
+
+            // Optionally, store choice in localStorage
+            localStorage.setItem('response', 'not forgiven');
+        }
+
+        function closeModal() {
+            // Close the custom alert modal
+            document.getElementById('modal-overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
